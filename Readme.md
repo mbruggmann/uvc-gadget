@@ -1,66 +1,30 @@
 ## uvc-gadget
 
-**Upstream project [uvc-gadget](http://git.ideasonboard.org/uvc-gadget.git) has been updated and continuous maintenance**
+Forked from and following the tutorial from here: http://www.davidhunt.ie/raspberry-pi-zero-with-pi-camera-as-usb-webcam/
 
-**Please refer to http://git.ideasonboard.org/uvc-gadget.git**
+### Build
 
-UVC gadget userspace enhancement sample application
+```bash
+git clone ...
+make
+```
 
-Fork from  
-[uvc-gadget.git](http://git.ideasonboard.org/uvc-gadget.git)  
-Apply enhancement Bhupesh Sharma's patchset  
-[UVC gadget test application enhancements](https://www.spinics.net/lists/linux-usb/msg84376.html)  
-and Robert Baldyga's patchset  
-[Bugfixes for UVC gadget test application](https://www.spinics.net/lists/linux-usb/msg99220.html)  
+### Install
 
-## How to use
+Install and enable the systemd service. The paths in the .service file might need adjustment depending on where the checkout is
+```bash
+sudo cp piwebcam.service /etc/systemd/system/
+sudo systemctl enable piwebcam
+```
 
-    Usage: ./uvc-gadget [options]
-    
-    Available options are
-        -b             Use bulk mode
-        -d             Do not use any real V4L2 capture device
-        -f <format>    Select frame format
-                0 = V4L2_PIX_FMT_YUYV
-                1 = V4L2_PIX_FMT_MJPEG
-        -h             Print this help screen and exit
-        -i image       MJPEG image
-        -m             Streaming mult for ISOC (b/w 0 and 2)
-        -n             Number of Video buffers (b/w 2 and 32)
-        -o <IO method> Select UVC IO method:
-                0 = MMAP
-                1 = USER_PTR
-        -r <resolution> Select frame resolution:
-                0 = 360p, VGA (640x360)
-                1 = 720p, WXGA (1280x720)
-        -s <speed>     Select USB bus speed (b/w 0 and 2)
-                0 = Full Speed (FS)
-                1 = High Speed (HS)
-                2 = Super Speed (SS)
-        -t             Streaming burst (b/w 0 and 15)
-        -u device      UVC Video Output device
-        -v device      V4L2 Video Capture device
+### Configure Raspian
 
-## Build  
+Add the following to the end of the arguments in `/boot/cmdline.txt` on the sd-card:
+```
+modules-load=dwc2,libcomposite
+```
 
-- host:  
-    make
-- Cross compile:  
-    make ARCH=arch CROSS_COMPILE=cross_compiler  
-    eg:  
-    make ARCH=arm CROSS_COMPILE=arm-hisiv600-linux-  
-- or:  
-    set ARCH, CROSS_COMPILE, KERNEL_DIR in Makefile
-
-## Change log
-
-- Apply patchset [Bugfixes for UVC gadget test application](https://www.spinics.net/lists/linux-usb/msg99220.html)  
-
-- Apply patchset [UVC gadget test application enhancements](https://www.spinics.net/lists/linux-usb/msg84376.html)  
-
-- Add Readme/.gitignore and documentations  
-  Copy linux-3.18.y/drivers/usb/gadget/function/uvc.h into repository, change include path for build
-
-### Initial
-
-- Fork(copy) from [uvc-gadget.git](http://git.ideasonboard.org/uvc-gadget.git)
+Add the following line to `/boot/config.txt` on the sd-card:
+```
+dtoverlay=dwc2
+```
