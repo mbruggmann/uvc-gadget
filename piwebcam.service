@@ -2,13 +2,13 @@
 Description=Stars pi webcam service
 
 [Service]
-ExecStart=/home/pi/uvc-gadget/piwebcam
+ExecStart=/home/pi/github/climberhunt/uvc-gadget/piwebcam
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=piwebcam
 User=pi
 Group=pi
-WorkingDirectory=/home/pi/uvc-gadget/
+WorkingDirectory=/home/pi/github/climberhunt/uvc-gadget/
 
 [Install]
 WantedBy=basic.target
