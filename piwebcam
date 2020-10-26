@@ -1,5 +1,6 @@
 #!/bin/bash
 #
 sudo /home/pi/github/climberhunt/uvc-gadget/multi-gadget.sh
+v4l2-ctl -c video_bitrate=15000000
 sudo /home/pi/github/climberhunt/uvc-gadget/uvc-gadget -f1 -s1 -r1  -u /dev/video1 -v /dev/video0
 
