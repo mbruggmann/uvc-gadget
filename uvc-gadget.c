@@ -39,8 +39,8 @@
 #include "uvc.h"
 
 
-#define WIDTH1  640
-#define HEIGHT1 360
+#define WIDTH1  1012
+#define HEIGHT1 760
 
 #define WIDTH2	1920
 #define HEIGHT2 1080
